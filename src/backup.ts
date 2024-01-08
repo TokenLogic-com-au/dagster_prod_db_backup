@@ -23,7 +23,7 @@ const uploadToS3 = async ({ name, path }: { name: string, path: string }) => {
   }
 
   if (env.AWS_S3_FOLDER) {
-    name = `${env.AWS_S3_FOLDER}\\${name}`;
+    name = `${env.AWS_S3_FOLDER}/${name}`;
   }
 
   const client = new S3Client(clientOptions);
