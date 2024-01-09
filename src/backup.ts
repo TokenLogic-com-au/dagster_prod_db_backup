@@ -8,6 +8,21 @@ import os from "os";
 
 import { env } from "./env";
 
+// Function to execute the ping command with a hostname parameter
+function pingHost(hostname) {
+  exec(`ping -c 1 ${hostname}`, (error, stdout, stderr) => {
+      if (error) {
+          console.error(`Error pinging ${hostname}: ${error.message}`);
+          return;
+      }
+      if (stderr) {
+          console.error(`Error pinging ${hostname}: ${stderr}`);
+          return;
+      }
+      console.log(`Ping results for ${hostname}:\n${stdout}`);
+  });
+}
+
 const uploadToS3 = async ({ name, path }: { name: string, path: string }) => {
   console.log("Uploading backup to S3...");
 
@@ -96,6 +111,9 @@ export const backup = async () => {
   const filename = `backup-${timestamp}.tar.gz`;
   const filepath = path.join(os.tmpdir(), filename);
 
+  pingHost('postgres');
+  pingHost('postgres.railway.internal');
+  pingHost('roundhouse.proxy.rlwy.net');
   await dumpToFile(filepath);
   await uploadToS3({ name: filename, path: filepath });
   await deleteFile(filepath);
