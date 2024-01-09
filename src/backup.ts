@@ -10,7 +10,7 @@ import { env } from "./env";
 
 // Function to execute the ping command with a hostname parameter
 function pingHost(hostname) {
-  exec(`ping -c 1 ${hostname}`, (error, stdout, stderr) => {
+  execSync(`ping -c 1 ${hostname}`, (error, stdout, stderr) => {
       if (error) {
           console.error(`Error pinging ${hostname}: ${error.message}`);
           return;
