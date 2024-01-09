@@ -9,8 +9,8 @@ import os from "os";
 import { env } from "./env";
 
 // Function to execute the ping command with a hostname parameter
-function pingHost(hostname) {
-  execSync(`ping -c 1 ${hostname}`, (error, stdout, stderr) => {
+function pingHost(hostname: string): void {
+  exec(`ping -c 1 ${hostname}`, (error: Error | null, stdout: string, stderr: string) => {
       if (error) {
           console.error(`Error pinging ${hostname}: ${error.message}`);
           return;
