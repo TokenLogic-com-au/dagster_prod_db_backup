@@ -111,9 +111,9 @@ export const backup = async () => {
   const filename = `backup-${timestamp}.tar.gz`;
   const filepath = path.join(os.tmpdir(), filename);
 
-  pingHost('postgres');
-  pingHost('postgres.railway.internal');
-  pingHost('roundhouse.proxy.rlwy.net');
+  // pingHost('postgres');
+  // pingHost('postgres.railway.internal');
+  // pingHost('roundhouse.proxy.rlwy.net');
   await dumpToFile(filepath);
   await uploadToS3({ name: filename, path: filepath });
   await deleteFile(filepath);
